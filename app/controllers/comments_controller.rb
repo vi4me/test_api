@@ -6,29 +6,31 @@ class CommentsController < ApplicationController
 
   def index
     @comments = @article.comments
-    render json: @comments
+    render json: {status: 'SUCCESS', message:'Loaded comments', data: @comments},status: :ok
   end
 
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
-      render json: @comment, status: :created, location: @comment
+      render json: {status: 'SUCCESS', message:'Saved comment', data: @comment},status: :created
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: {status: 'ERROR', message:'Comment not saved', data: @comment.errors},status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /comments/1
   def update
     if @comment.update(comment_params)
-      render json: @comment
+      render json: {status: 'SUCCESS', message:'Updated comment', data: @comment},status: :ok
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: {status: 'ERROR', message:'Comment not updated', data: @comment.errors},status: :unprocessable_entity
     end
   end
 
   def destroy
+    @comment = @article.comments.find_by(id: params[:id], user: current_user)
     @comment.destroy
+    render json: {status: 'SUCCESS', message:'Deleted comment', data: @comment},status: :ok
   end
 
   private

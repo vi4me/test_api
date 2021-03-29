@@ -2,10 +2,8 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
 
-  # GET /articles
   def index
-    @articles = Article.all
-    render json: {status: 'SUCCESS', message:'Loaded articles', data: @articles},status: :ok
+    @articles = Article.order('created_at DESC')
   end
 
   def show
@@ -34,6 +32,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    @article = @article.find_by(id: params[:id], user: current_user)
     @article.destroy
     render json: {status: 'SUCCESS', message:'Deleted article', data: @article},status: :ok
   end

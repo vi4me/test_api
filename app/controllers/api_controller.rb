@@ -1,4 +1,6 @@
 class ApiController < ApplicationController
+  include ActionController::ImplicitRender
+
   before_action :set_default_format
   before_action :authenticate_user!
 
