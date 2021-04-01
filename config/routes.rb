@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   get  '/auth' => 'authentication#fetch'
 
   resources :users
-  
+  resources :categories
+
   resources :articles do
     resources :comments
   end

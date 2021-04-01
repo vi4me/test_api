@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
 
+  # GET /articles.json
   def index
     @articles = Article.order('created_at DESC')
   end
@@ -11,7 +12,6 @@ class ArticlesController < ApplicationController
     render json: {status: 'SUCCESS', message:'Loaded article', data: @article},status: :ok
   end
 
-  # POST /articles
   def create
     @article = Article.new(article_params)
 
