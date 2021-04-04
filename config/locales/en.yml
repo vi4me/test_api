@@ -1,33 +1,21 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
   hello: "Hello world"
+  home:
+    index:
+      welcome_html: "Welcome, <strong>%{name}!</strong>"
+  categories:
+      - title: "Forgive me, my Lady! My thoughts were far away… I … did not mean to be familiar."
+        category_id: 5
+        created_at: "2021-04-04 17:54"
+      - title: "If wishes were fishes, we'd all cast nets."
+        category_id: 4
+        created_at: "2021-04-04 17:53"
+      - title: "Bring in that floating fat man, the Baron!"
+        category_id: 3
+        created_at: "2021-04-04 17:52"
+      - title: "Some thoughts have a certain sound, that being the equivalent to a form. Through sound and motion, you will be able to paralyze nerves, shatter bones, set fires, suffocate an enemy or burst his organs. We will kill until no Harkonnen breathes Arakeen air."
+        category_id: 2
+        created_at: "2021-04-04 17:51"
+      - title: "The highest function of ecology is understanding consequences."
+        category_id: 1
+        created_at: "2021-04-04 17:50"
