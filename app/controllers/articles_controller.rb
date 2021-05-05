@@ -17,25 +17,25 @@ class ArticlesController < ApplicationController
     article = Article.new(article_params)
 
     if article.save
-      render json: {status: 'SUCCESS', message:'Saved article', data: article},status: :ok
+      render json: article, serializer: serializer, status: :created
     else
-      render json: {status: 'ERROR', message:'Article not saved', data: article.errors},status: :unprocessable_entity
+      render json: article.errors, serializer: ErrorSerializer
     end
   end
 
   # PATCH/PUT /articles/1
   def update
     if article.update(article_params)
-      render json: {status: 'SUCCESS', message:'Updated article', data: article},status: :ok
+      render json: article, serializer: serializer, status: :ok
     else
-      render json: {status: 'ERROR', message:'Article not updated', data: @article.errors},status: :unprocessable_entity
+      render json: article.errors, serializer: ErrorSerializer
     end
   end
 
   def destroy
-    article = article.find_by(id: params[:id], user: current_user)
+    article = article.find(id: params[:id], user: current_user)
     article.destroy
-    render json: {status: 'SUCCESS', message:'Deleted article', data: article},status: :ok
+    render json: article, serializer: serializer, status: :ok
   end
 
   private
@@ -45,6 +45,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:user_id, :title, :body, :category)
+      params.require(:article).permit(:user_id, :title, :body, :category_id, :comments_count)
     end
 end

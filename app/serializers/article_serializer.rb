@@ -4,8 +4,4 @@ class ArticleSerializer < ActiveModel::Serializer
   def short_body
     object.body.truncate(500, :omission => "...")
   end
-
-  def comments_count
-    object.comments.size
-  end
 end

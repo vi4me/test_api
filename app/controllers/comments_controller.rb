@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :set_comment, only: [:update, :destroy]
   before_action :set_article
   before_action :authenticate_user!, only: [:create, :update, :destroy]
 
@@ -12,25 +12,25 @@ class CommentsController < ApplicationController
   def create
     comment = Comment.new(comment_params)
     if comment.save
-      render json: {status: 'SUCCESS', message:'Saved comment', data: comment},status: :created
+      render json: article, serializer: serializer,status: :created
     else
-      render json: {status: 'ERROR', message:'Comment not saved', data: comment.errors},status: :unprocessable_entity
+      render json: comment.errors, serializer: ErrorSerializer
     end
   end
 
   # PATCH/PUT /comments/1
   def update
     if comment.update(comment_params)
-      render json: {status: 'SUCCESS', message:'Updated comment', data: comment},status: :ok
+      render json: article, serializer: serializer, status: :ok
     else
-      render json: {status: 'ERROR', message:'Comment not updated', data: comment.errors},status: :unprocessable_entity
+      render json: comment.errors, serializer: ErrorSerializer
     end
   end
 
   def destroy
-    comment = @article.comments.find_by(id: params[:id], user: current_user)
+    comment = @article.comments.find(id: params[:id], user: current_user)
     comment.destroy
-    render json: {status: 'SUCCESS', message:'Deleted comment', data: comment},status: :ok
+    render json: article, serializer: serializer, status: :ok
   end
 
   private
