@@ -4,12 +4,13 @@ class ArticlesController < ApplicationController
 
   # GET /articles.json
   def index
-    @articles = Article.order('created_at DESC')
+    @articles = Article.order('created_at DESC').page params[:page]
+    render json: @articles, include: [:comments], each_serializer: ArticleSerializer
   end
 
   def show
     @article = Article.find(params[:id])
-    render json: {status: 'SUCCESS', message:'Loaded article', data: @article},status: :ok
+    render json: @article, include: [:comments], serializer: ShowArticleSerializer
   end
 
   def create

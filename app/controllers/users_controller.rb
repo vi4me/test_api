@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.order('created_at DESC')
-    render json: @users
+    render json: @users, include: [:articles], each_serializer: UserSerializer
   end
 
   def show

@@ -3,12 +3,12 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.order('created_at DESC')
+    render json: @categories, include: [:articles], each_serializer: CategorySerializer
   end
 
   def show
    @category = Category.find(params[:id])
-   @category.articles = @category.articles
-   render json: {status: 'SUCCESS', category: @category, articles: @category.articles},status: :ok
+   render json: @category, include: [:articles], serializer: CategorySerializer
   end
 
   def create

@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   post :auth, to: 'authentication#create'
   get  '/auth' => 'authentication#fetch'
 
-  resources :users
   resources :categories
+  resources :users
 
   resources :articles do
     resources :comments

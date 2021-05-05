@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 
   def index
     @comments = @article.comments
-    render json: {status: 'SUCCESS', message:'Loaded comments', data: @comments},status: :ok
+    render json: @comments, each_serializer: CommentSerializer
   end
 
   def create
