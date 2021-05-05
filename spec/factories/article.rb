@@ -5,6 +5,6 @@ FactoryBot.define do
     title { Faker::Book.title }
     body { Faker::Book.genre }
     category_id { 1 }
-    user_id { 1 }
+    association :user, factory: :user
   end
 end

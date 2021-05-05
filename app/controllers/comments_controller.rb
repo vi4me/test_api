@@ -5,32 +5,32 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :update, :destroy]
 
   def index
-    @comments = @article.comments
-    render json: @comments, each_serializer: CommentSerializer
+    comments = @article.comments
+    render json: comments, each_serializer: CommentSerializer
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    if @comment.save
-      render json: {status: 'SUCCESS', message:'Saved comment', data: @comment},status: :created
+    comment = Comment.new(comment_params)
+    if comment.save
+      render json: {status: 'SUCCESS', message:'Saved comment', data: comment},status: :created
     else
-      render json: {status: 'ERROR', message:'Comment not saved', data: @comment.errors},status: :unprocessable_entity
+      render json: {status: 'ERROR', message:'Comment not saved', data: comment.errors},status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /comments/1
   def update
-    if @comment.update(comment_params)
-      render json: {status: 'SUCCESS', message:'Updated comment', data: @comment},status: :ok
+    if comment.update(comment_params)
+      render json: {status: 'SUCCESS', message:'Updated comment', data: comment},status: :ok
     else
-      render json: {status: 'ERROR', message:'Comment not updated', data: @comment.errors},status: :unprocessable_entity
+      render json: {status: 'ERROR', message:'Comment not updated', data: comment.errors},status: :unprocessable_entity
     end
   end
 
   def destroy
-    @comment = @article.comments.find_by(id: params[:id], user: current_user)
-    @comment.destroy
-    render json: {status: 'SUCCESS', message:'Deleted comment', data: @comment},status: :ok
+    comment = @article.comments.find_by(id: params[:id], user: current_user)
+    comment.destroy
+    render json: {status: 'SUCCESS', message:'Deleted comment', data: comment},status: :ok
   end
 
   private
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
     end
 
     def set_comment
-      @comment = Comment.find(params[:id])
+      comment = Comment.find(params[:id])
     end
 
     def comment_params

@@ -9,7 +9,6 @@ RSpec.describe CategoriesController, type: :controller do
       get :index
 
       expect(response).to have_http_status(:success)
-      expect(response.status).to eq(200)
       should route(:get, '/categories').to(action: :index)
     end
 
